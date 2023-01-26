@@ -3,8 +3,7 @@
 #definir la fonction somme 
 from random import randint
 Array=[]
-def GenerateRandomArray(size,lowerBound,upperBound):
-    
+def GenerateRandomArray(size,lowerBound,upperBound):  
     Array=[randint(lowerBound,upperBound) for i in range(size)]
     return Array
 
@@ -18,27 +17,33 @@ def GetSubArray(Array:list,firstIndex,lastIndex):
     sub=[Array[i] for i in range(firstIndex,lastIndex)]
     return sub
 
+def Somme(Array:list):
+    Sum=0
+    for i in Array:
+        Sum+=i
+    return Sum
 
     
 
 
 
-def main (Array:list):
+def main(Array:list):
+    sousSequenceMaximal=[]
+    sum=0
     print(Array)
-    result=0
     for i in range(len(Array)): 
-        print(i)
+        
         for j in range(i+1,len(Array)  ): 
-            print(j)
-            if(sum(GetSubArray(Array,i,j)) > result):
-                result=sum(GetSubArray(Array,i,j))
+            
+            if(Somme(GetSubArray(Array,i,j)) > sum):
+                sum=Somme(GetSubArray(Array,i,j))
                 print("my sub array",GetSubArray(Array,i,j))
-    return result
-    
+                sousSequenceMaximal=[i,j]
+    return sousSequenceMaximal
+
 
 
 
 ########TEST########
-
-
 main(GenerateRandomArray(5,-10,10))
+
