@@ -4,8 +4,8 @@
 from random import randint
 Array=[]
 def GenerateRandomArray(size,lowerBound,upperBound):
-    for i in range(size):
-        Array.append(randint(lowerBound,upperBound))
+    
+    Array=[randint(lowerBound,upperBound) for i in range(size)]
     return Array
 
 
@@ -13,24 +13,32 @@ def GenerateRandomArray(size,lowerBound,upperBound):
 
 def GetSubArray(Array:list,firstIndex,lastIndex):
     sub=list[int]
-    for i in range(firstIndex,lastIndex):
-        sub.append(Array[i])
+    if (firstIndex==lastIndex):
+        return Array[firstIndex]
+    sub=[Array[i] for i in range(firstIndex,lastIndex)]
     return sub
 
 
-def Somme (Array:list):
-    sum=0
-    for i in Array:
-        sum+=i
-    return sum
+    
 
-GenerateRandomArray(5,-10,10)
-print(Array)
-result=0
-for i in range(len(Array)):
-    for j in range(len(Array)):
-        if(Somme(GetSubArray(Array,i,j))>result):
-            result=Somme(GetSubArray(Array,i,j))
-            print("my sub array",GetSubArray(Array,i,j))
-            print(result)
 
+
+def main (Array:list):
+    print(Array)
+    result=0
+    for i in range(len(Array)): 
+        print(i)
+        for j in range(i+1,len(Array)  ): 
+            print(j)
+            if(sum(GetSubArray(Array,i,j)) > result):
+                result=sum(GetSubArray(Array,i,j))
+                print("my sub array",GetSubArray(Array,i,j))
+    return result
+    
+
+
+
+########TEST########
+
+
+main(GenerateRandomArray(5,-10,10))
