@@ -10,35 +10,36 @@ def GenerateRandomArray(size,lowerBound,upperBound):
 
 
 
-def GetSubArray(Array:list,firstIndex,lastIndex):
-    sub=list[int]
+def GetSubArray(Array:list,firstIndex,lastIndex): 
     if (firstIndex==lastIndex):
         return Array[firstIndex]
-    sub=[Array[i] for i in range(firstIndex,lastIndex)]
+    sub=[Array[i] for i in range(firstIndex,lastIndex+1)]
     return sub
 
-def Somme(Array:list):
+def Somme(Array):
     Sum=0
-    for i in Array:
-        Sum+=i
-    return Sum
+
+    if isinstance(Array,list):
+        for i in Array:
+            Sum+=i
+        return Sum
+    return Array
 
     
 
 
 
 def main(Array:list):
-    sousSequenceMaximal=[]
-    sum=0
+    sousSequenceMaximal=[0,0]
+    sum=Array[0]
     print(Array)
-    for i in range(len(Array)): 
-        
-        for j in range(i+1,len(Array)  ): 
-            
+    for i in range(len(Array)):      
+        for j in range(i,len(Array)): 
             if(Somme(GetSubArray(Array,i,j)) > sum):
                 sum=Somme(GetSubArray(Array,i,j))
-                print("my sub array",GetSubArray(Array,i,j))
+                #print("my sub array",GetSubArray(Array,i,j))
                 sousSequenceMaximal=[i,j]
+    print(sousSequenceMaximal)
     return sousSequenceMaximal
 
 

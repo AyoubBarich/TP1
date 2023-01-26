@@ -9,32 +9,31 @@ def GetSubArray(Array:list,firstIndex,lastIndex):
     sub=list[int]
     if (firstIndex==lastIndex):
         return Array[firstIndex]
-    sub=[Array[i] for i in range(firstIndex,lastIndex)]
+    sub=[Array[i] for i in range(firstIndex,lastIndex+1)]
     return sub
 
-def Somme(T:list,d,f):
+def Somme(T,d,f):
     if f<d:
         return -1
-    sum =Somme(T,d,f-1)+T[f]
-    return sum
+    if isinstance(T,list):
+        sum =Somme(T,d,f-1)+T[f]
+        return sum
+    return T
 
 def main(Array:list):
-    sousSequenceMaximal=[]
-    sum=0
+    sousSequenceMaximal=[0,0]
+    sum=Array[0]
     print(Array)
-
-    for i in range(len(Array)-1): 
-        
-        for j in range(i+1,len(Array) ): 
-            
-            if(Somme(Array,i,j) > sum):
-                sum=Somme(Array,i,j)
-                print("my sub array",GetSubArray(Array,i,j))
+    for i in range(len(Array)):      
+        for j in range(i,len(Array)): 
+            if(Somme(GetSubArray(Array,i,j),i,j) > sum):
+                sum=Somme(GetSubArray(Array,i,j),i,j)
+                #print("my sub array",GetSubArray(Array,i,j))
                 sousSequenceMaximal=[i,j]
-
-                
-    print(sousSequenceMaximal)           
+    print(sousSequenceMaximal)
     return sousSequenceMaximal
+
+
 
 
 ########TEST########
