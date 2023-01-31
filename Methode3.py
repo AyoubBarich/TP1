@@ -13,26 +13,47 @@ def GetSubArray(Array:list,firstIndex,lastIndex):
     sub=[Array[i] for i in range(firstIndex,lastIndex)]
     return sub
 
-#def Somme(T:list,d,f):
-#    if f<d:
-#        return -1
-#    sum =Somme(T,d,f-1)+T[f]
-#    return sum
+
 def Somme(Array):
     Sum=0
+
     if isinstance(Array,list):
         for i in Array:
             Sum+=i
+        print(Sum)
         return Sum
+    
     return Array
+    
 
 
-def SousSequenceMaximal(Array:list):
+
+def MaximalSubSequence(Array:list):
+    lenght=len(Array)
+    rightSubsequenceMax=[0,0]
+    leftSubsequenceMax=[pointer,pointer]
+    
     sum=Array[0]
-    pointer=math.floor(len(Array)/2)
-    rightSousSequence=GetSubArray(Array,0,pointer)
-    leftSousSequence=GetSubArray(Array,pointer,len(Array)-1)
-    if(Somme(rightSousSequence) > sum):
-                sum=Somme(rightSousSequence)
-                print("my sub array",GetSubArray(Array,i,j))
-                sousSequenceMaximal=[i,j]
+    pointer=lenght//2
+    tmp=0
+    for i in range(0,pointer):
+        tmp=0
+        for j in range (i,pointer):
+            tmp+=Array[j]
+            if(sum < tmp):
+                sum=tmp
+                rightSubsequenceMax=[i,j]
+    for i in range(pointer,len):
+        tmp=0
+        for j in range (i,len):
+            tmp+=Array[j]
+            if(sum < tmp):
+                sum=tmp
+                leftSubsequenceMax=[i,j]
+    return rightSubsequenceMax if Somme(leftSubsequenceMax)<Somme(rightSubsequenceMax) else leftSubsequenceMax
+
+
+
+
+########TEST########
+MaximalSubSequence(GenerateRandomArray(500,-10,10))
