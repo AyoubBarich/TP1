@@ -12,22 +12,19 @@ def GetSubArray(Array:list,firstIndex,lastIndex):
     sub=[Array[i] for i in range(firstIndex,lastIndex+1)]
     return sub
 
-def Somme(T,d,f):
-    if f<d:
-        return -1
-    if isinstance(T,list):
-        sum =Somme(T,d,f-1)+T[f]
-        return sum
-    return T
-
 def main(Array:list):
     sousSequenceMaximal=[0,0]
     sum=Array[0]
-    print(Array)
-    for i in range(len(Array)):      
+    tmp =0
+    #print(Array)
+    for i in range(len(Array)): 
+        tmp=0     
         for j in range(i,len(Array)): 
-            if(Somme(GetSubArray(Array,i,j),i,j) > sum):
-                sum=Somme(GetSubArray(Array,i,j),i,j)
+            
+            tmp+=Array[j]
+            #print(i,j,tmp,GetSubArray(Array,i,j))
+            if(sum < tmp):
+                sum=tmp
                 #print("my sub array",GetSubArray(Array,i,j))
                 sousSequenceMaximal=[i,j]
     print(sousSequenceMaximal)
@@ -37,4 +34,4 @@ def main(Array:list):
 
 
 ########TEST########
-main(GenerateRandomArray(5,-10,10))
+main(GenerateRandomArray(500,-10,10))

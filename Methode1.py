@@ -32,7 +32,7 @@ def Somme(Array):
 def main(Array:list):
     sousSequenceMaximal=[0,0]
     sum=Array[0]
-    print(Array)
+    
     for i in range(len(Array)):      
         for j in range(i,len(Array)): 
             if(Somme(GetSubArray(Array,i,j)) > sum):
@@ -46,5 +46,5 @@ def main(Array:list):
 
 
 ########TEST########
-main(GenerateRandomArray(5,-10,10))
+main(GenerateRandomArray(500,-10,10))
 
