@@ -96,11 +96,12 @@ def MaxSub(Array,d,f):
     ArrayRight=MaxSub(Array,midPoint+1,f)
     print("left",ArrayLeft)
     print("right",ArrayRight)
+   
 
     sumArrayLeft = Array[midPoint]
     sumArrayLeftMax = sumArrayLeft
     leftIndexMax = midPoint
-
+    
     for leftIndex in range(midPoint-1,d-1,-1):
         sumArrayLeft+=Array[leftIndex]
         if(sumArrayLeftMax<= sumArrayLeft):
@@ -110,12 +111,12 @@ def MaxSub(Array,d,f):
     sumArrayRight = Array[midPoint]
     sumArrayRightMax = sumArrayRight
     rightIndexMax = midPoint
-
+    print([sumMax,leftIndexMax,rightIndexMax])
     for rightIndex in range(midPoint+1,f+1):
             sumArrayRight+=Array[rightIndex]
             if(sumArrayRightMax<= sumArrayRight):
                 sumArrayRightMax=sumArrayRight
-                leftIndexMax=leftIndex
+                rightIndexMax=rightIndex
 
 
     sumMax = sumArrayRightMax+sumArrayLeftMax-Array[midPoint]
