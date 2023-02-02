@@ -34,4 +34,4 @@ def main(Array:list):
 
 
 ########TEST########
-main(GenerateRandomArray(500,-10,10))
+main(GenerateRandomArray(1000,-10,10))

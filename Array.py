@@ -1,5 +1,3 @@
-import random
-
 def Maximum_tuple_first_element(T1, T2, T3):
   sum_max = max(T1[0],T2[0],T3[0])
   if (T1[0] == sum_max):
@@ -9,54 +7,57 @@ def Maximum_tuple_first_element(T1, T2, T3):
   else :
     return T3
 
-def Method3(T):
-
-  if (len(T) == 1):
-    return (T[0], 0 , 0)
-    
-  else:
-    m = len(T) // 2
-    sum = T[m]
-    ind_g = m 
-    ind_d = m 
-    
-    while (ind_d+1 < len(T)):
-      ind_d += 1
-      sum += T[ind_d]
-    while (ind_g-1 >= 0):
-      ind_g -= 1
-      sum += T[ind_g]
+def Methode3_rec(T, d, f):
+  if (d == f):
+    return (T[d], d, f)
   
-  rec_g = Method3(T[:m])
-  rec_d = Method3(T[m:])
+  if (f - d == 1):
+    if (T[d] > 0 and T[f] > 0 ):
+      return (T[d]+T[f],d ,f)
+    elif (T[d] > 0):
+      return (T[d], d, d)
+    elif (T[f] > 0):
+      return (T[f], f, f)
+    elif (T[d] > T[f]):
+      return (T[d], d, d)
+    else:
+      return (T[f], f, f)
+
   
-  return Maximum_tuple_first_element((sum, ind_g,ind_d), 
-  (rec_g[0], rec_g[1], rec_g[2]),
-  (rec_d[0], rec_d[1] + m, rec_d[2] + m))
+  m = (d + f) // 2
+  sum_temp = T[m]
+  sum_max = sum_temp
+
+  T_gauche = Methode3_rec(T, d, m-1)
+  T_droite = Methode3_rec(T, m+1, f)
 
 
-#______________TEST_____________
+  sum_d = T[m]  
+  sum_d_max = sum_d
+  d_max = m 
 
-chosenList = [-2,-1,0,1,2]
-print("T =", chosenList)
-print("S =", (Method3(chosenList)[1], Method3(chosenList)[2]), "et la somme est de " , Method3(chosenList)[0])
+  for ind_d in range (m - 1, d - 1, -1):
+    sum_d += T[ind_d]
+    if (sum_d_max <= sum_d):
+      sum_d_max = sum_d
+      d_max = ind_d
 
-#Generate 1 random numbers between -10 and 10
-randomlist = random.sample(range(-10,10), 1)
-print("T =", randomlist)
-print("S =", (Method3(randomlist)[1], Method3(randomlist)[2]), "et la somme est de " , Method3(randomlist)[0])
+  sum_f = T[m]  
+  sum_f_max = sum_f
+  f_max = m 
 
-#Generate 5 random numbers between -10 and 0
-randomlist = random.sample(range(-10,0), 5)
-print("T =", randomlist)
-print("S =", (Method3(randomlist)[1], Method3(randomlist)[2]), "et la somme est de " , Method3(randomlist)[0])
+  for ind_f in range (m + 1, f + 1):
+    sum_f += T[ind_f]
+    if (sum_f_max <= sum_f):
+      sum_f_max = sum_f
+      f_max = ind_f
 
-#Generate 10 random numbers between -10 and 10
-randomlist = random.sample(range(-10,10), 10)
-print("T =", randomlist)
-print("S =", (Method3(randomlist)[1], Method3(randomlist)[2]), "et la somme est de " , Method3(randomlist)[0])
+  sum_max = sum_d_max + sum_f_max - T[m]
 
-#Generate 20 random numbers between -100 and 100
-randomlist = random.sample(range(-100,100), 20)
-print("T =", randomlist)
-print("S =", (Method3(randomlist)[1], Method3(randomlist)[2]), "et la somme est de " , Method3(randomlist)[0])
+  return Maximum_tuple_first_element((sum_max,d_max,f_max), T_gauche, T_droite)
+
+def Methode3(T):
+  return Methode3_rec(T,0,len(T)-1)
+
+
+print(Methode3([-3, -10, 6, 2, 10]))
