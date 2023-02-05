@@ -60,4 +60,4 @@ def Methode3(T):
   return Methode3_rec(T,0,len(T)-1)
 
 
-print(Methode3([-3, -10, 6, 2, 10]))
+print(Methode3([-10, 10, 10, -3, 3]))
